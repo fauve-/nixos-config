@@ -4,9 +4,8 @@
   imports = [
     ./git.nix
     ./shell.nix
+    ./emacs.nix
   ];
-
-
 
   home.username = "fauve";
   home.homeDirectory = "/home/fauve";
@@ -20,6 +19,8 @@
     vscode
     clang
     signal-desktop
+    codex
+    nixfmt
   ];
 
   home.stateVersion = "26.05";

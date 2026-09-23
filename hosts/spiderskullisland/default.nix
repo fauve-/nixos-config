@@ -7,10 +7,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_6_18;
 
-
   # Enable networking  networking.hostName = "spiderskull-island"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
 
   networking.networkmanager.enable = true;
   networking.hostName = "spiderskull-island";
@@ -33,19 +31,17 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-
   services.xserver = {
-	enable = true;
-	windowManager.i3 = {
-		enable = true;
-		extraPackages = with pkgs; [
-			dmenu
-			i3status
-			i3lock
-		];
-	};
+    enable = true;
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status
+        i3lock
+      ];
+    };
   };
-
 
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
@@ -54,7 +50,6 @@
     layout = "us";
     variant = "";
   };
-
 
   nixpkgs.config.allowUnfree = true;
 
@@ -71,14 +66,10 @@
     ];
   };
 
-
   environment.systemPackages = with pkgs; [
     vim
     git
     firefox
-    htop
-    direnv
-    nix-direnv
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -87,10 +78,9 @@
   # Keep the value generated for your installation.
   system.stateVersion = "26.05";
 
-
-  services.xserver.videoDrivers = [ 
-  "amdgpu"
-  "nvidia"
+  services.xserver.videoDrivers = [
+    "amdgpu"
+    "nvidia"
   ];
 
   hardware.graphics.enable = true;
@@ -101,18 +91,17 @@
     open = true;
     modesetting.enable = true;
     nvidiaSettings = true;
-    
+
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     prime = {
       offload = {
-      enable = true;
-      enableOffloadCmd = true;
+        enable = true;
+        enableOffloadCmd = true;
       };
-    amdgpuBusId = "PCI:101@0:0:0";
-    nvidiaBusId = "PCI:1@0:0:0";
+      amdgpuBusId = "PCI:101@0:0:0";
+      nvidiaBusId = "PCI:1@0:0:0";
     };
   };
-
 
   programs.zsh.enable = true;
 
