@@ -5,10 +5,7 @@
     ./hardware-configuration.nix
   ];
 
-
-
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
 
 
   # Enable networking  networking.hostName = "spiderskull-island"; # Define your hostname.
@@ -79,6 +76,7 @@
     vim
     git
     firefox
+    htop
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -86,4 +84,30 @@
 
   # Keep the value generated for your installation.
   system.stateVersion = "26.05";
+
+
+  services.xserver.videoDrivers = [ 
+  "amdgpu"
+  "nvidia"
+  ];
+
+  hardware.graphics.enable = true;
+
+  hardware.nvidia = {
+    # Appropriate for most RTX 20xx+ GPUs.
+    # Older GPUs may need false.
+    open = true;
+    modesetting.enable = true;
+    nvidiaSettings = true;
+    
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    prime = {
+      offload = {
+	enable = true;
+	enableOffloadCmd = true;
+      };
+	amdgpuBusId = "PCI:101@0:0:0";
+	nvidiaBusId = "PCI:1@0:0:0";
+    };
+  };
 }
