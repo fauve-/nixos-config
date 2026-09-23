@@ -77,6 +77,8 @@
     git
     firefox
     htop
+    direnv
+    nix-direnv
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -103,11 +105,20 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     prime = {
       offload = {
-	enable = true;
-	enableOffloadCmd = true;
+      enable = true;
+      enableOffloadCmd = true;
       };
-	amdgpuBusId = "PCI:101@0:0:0";
-	nvidiaBusId = "PCI:1@0:0:0";
+    amdgpuBusId = "PCI:101@0:0:0";
+    nvidiaBusId = "PCI:1@0:0:0";
     };
   };
+
+
+  programs.zsh.enable = true;
+
+  users.users.fauve.shell = pkgs.zsh;
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
 }
